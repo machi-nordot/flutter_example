@@ -6,72 +6,77 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
     title: 'Navigation',
-    home: TodoScreen(
-      todos: List<Todo>.generate(20, (i) => Todo(
-        title: 'TODO $i',
-        description: 'TODO $i の詳細',
-      )),
-    ),
+    home: HomeScreen(),
   );
 }
 
-// TODOを表すクラス
-class Todo {
-  final String title;
-  final String description;
-
-  Todo({ @required this.title, @required this.description })
-    : assert(title != null),
-      assert(description != null);
-}
-
-class TodoScreen extends StatelessWidget {
-  final List<Todo> _todos;
-
-  TodoScreen({ Key key, @required List<Todo> todos })
-    : assert(todos != null),
-      this._todos = todos,
-      super(key: key);
-
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: Text('TODOリスト'),
+      title: Text('Demo'),
     ),
-    body: ListView.builder(
-      itemCount: _todos.length,
-      itemBuilder: (context, index) => ListTile(
-        title: Text(_todos[index].title),
-        onTap: () {
-          // TODOの詳細画面に遷移する処理
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => DetailScreen(todo: _todos[index]),
-            )
-          );
-        }
+    body: Center(child: SelectionButton()),
+  );
+}
+
+class SelectionButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => RaisedButton(
+    onPressed: () {
+      // ここの遷移処理は複雑になるので別メソッドに分けています。
+      _navigateAndDisplaySelection(context);
+    },
+    child: Text('オプションを選択'),
+  );
+
+  void _navigateAndDisplaySelection(BuildContext context) async {    
+    // 遷移先からのデータは Navigator.pushメソッドの戻り値として戻ってくる。
+    // ただし、画面遷移してから元画面に戻るには時間がかかるので、データは直接渡されるのではなくFutureとして戻ってくる。
+    // 実際のデータが戻るまで待機する必要があるので、awaitキーワードを使用してFutereの解決を待機する。
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SelectionScreen()),
+    );
+
+    Scaffold.of(context)
+      ..removeCurrentSnackBar() // すでに表示されているスナックバーがある場合は削除する
+      ..showSnackBar(SnackBar(content: Text(result)));
+  }
+}
+
+class SelectionScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(
+      title: Text('選択してください'),
+    ),
+    body: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: RaisedButton(
+              child: Text('選択肢1'),
+              onPressed: () {
+                // 「選択肢1」というデータとともに元の画面に戻る処理
+                Navigator.pop(context, '選択肢1');
+              },
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: RaisedButton(
+              child: Text('選択肢2'),
+              onPressed: () {
+                // 「選択肢2」というデータとともに元の画面に戻る処理
+                Navigator.pop(context, '選択肢2');
+              },
+            ),
+          ),
+        ],
       ),
     ),
-  );
-}
-
-class DetailScreen extends StatelessWidget {
-  final Todo _todo;
-
-  DetailScreen({ Key key, @required Todo todo })
-    : assert(todo != null),
-      this._todo = todo,
-      super(key: key);
-  
-  @override
-  Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      title: Text(_todo.title),
-    ),
-    body: Padding(
-      padding: EdgeInsets.all(16.0),
-      child: Text(_todo.description),
-    )
   );
 }
