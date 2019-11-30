@@ -11,37 +11,30 @@ class MyApp extends StatelessWidget {
       appBar: AppBar(
         title: Text('Widgets layout demo'),
       ),
-      body: _buildList(),
+      body: _buildStack(),
     ),
   );
 
-  Widget _buildList() => ListView(
+  Widget _buildStack() => Stack(
+    alignment: Alignment(0.6, 0.6),
     children: <Widget>[
-      _tile('映画館1', '映画館です', Icons.theaters),
-      _tile('映画館2', '映画館です', Icons.theaters),
-      _tile('映画館3', '映画館です', Icons.theaters),
-      _tile('映画館4', '映画館です', Icons.theaters),
-      _tile('映画館5', '映画館です', Icons.theaters),
-      _tile('映画館6', '映画館です', Icons.theaters),
-      Divider(),
-      _tile('レストラン1', 'レストランです', Icons.restaurant),
-      _tile('レストラン2', 'レストランです', Icons.restaurant),
-      _tile('レストラン3', 'レストランです', Icons.restaurant),
-      _tile('レストラン4', 'レストランです', Icons.restaurant),
-      _tile('レストラン5', 'レストランです', Icons.restaurant),
-      _tile('レストラン6', 'レストランです', Icons.restaurant),      
+      CircleAvatar(
+        backgroundImage: AssetImage('images/pic1.jpg'),
+        radius: 100,
+      ),
+      Container(
+        decoration: BoxDecoration(
+          color: Colors.black45,
+        ),
+        child: Text(
+          'Mia B',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.white
+          )
+        )
+      )
     ],
-  );
-
-  ListTile _tile(String title, String subtitle, IconData icon) => ListTile(
-    title: Text(title, style: TextStyle(
-      fontWeight: FontWeight.w500,
-      fontSize: 20,
-    )),
-    subtitle: Text(subtitle),
-    leading: Icon(
-      icon,
-      color: Colors.blue[500],
-    ),
   );
 }
