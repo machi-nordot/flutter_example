@@ -5,30 +5,46 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
-    title: 'Widgets layout demo',
-    theme: ThemeData(primarySwatch: Colors.blue),
-    home: Scaffold(
-      appBar: AppBar(
-        title: Text('Widgets layout demo'),
+    title: 'Navigation',
+    home: FirstScreen(),
+  );
+}
+
+class FirstScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(
+      title: Text('1番目のルート')
+    ),
+    body: Center(
+      child: RaisedButton(
+        child: Text('次の画面を開く'),
+        onPressed: () {
+          // SecondScreenへ遷移する処理
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SecondScreen()),
+          );
+        },
       ),
-      body: _buildListTile(),
     ),
   );
+}
 
-  Widget _buildListTile() => ListTile(
-    leading: Icon(
-      Icons.restaurant_menu,
-      color: Colors.blue[500],
+class SecondScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(
+      title: Text('2番目のルート')
     ),
-    title: Text('Main text'),
-    subtitle: Text('Sub text 1\nSub text 2'),
-    trailing: DropdownButton(
-      hint: Text('番号'),
-      items: ['1', '2', '3', '4'].map((value) => DropdownMenuItem(
-        value: value,
-        child: Text(value),        
-      )).toList(),
-      onChanged: (value) {},
-    )
+    body: Center(
+      child: RaisedButton(
+        child: Text('戻る'),
+        onPressed: () {
+          // FirstScreenへ遷移する処理
+          Navigator.pop(context);
+        },
+      ),
+    ),
   );
 }
