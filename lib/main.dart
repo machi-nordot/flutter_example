@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
             child: Image.asset('images/pic2.jpg'),
           ),
           Expanded(
+            flex: 2,
             child: Image.asset('images/pic3.jpg'),
           ),
           Expanded(
