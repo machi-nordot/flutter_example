@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
       appBar: AppBar(
         title: Text('Flutter layout demo'),
       ),
-      body: Row(
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Image.asset('images/pic1.jpg'),
