@@ -11,26 +11,37 @@ class MyApp extends StatelessWidget {
       appBar: AppBar(
         title: Text('Widgets layout demo'),
       ),
-      body: _buildGrid([
-        'images/pic1.jpg',
-        'images/pic2.jpg',
-        'images/pic3.jpg',
-        'images/pic1.jpg',
-        'images/pic2.jpg',
-        'images/pic3.jpg',
-      ]),
+      body: _buildList(),
     ),
   );
 
-  // GridView.count: 1列の要素数を指定して作成
-  // GridView.extent: タイル(gridの各要素)の最大幅を指定して作成
-  Widget _buildGrid(List<String> images) => GridView.extent(
-    maxCrossAxisExtent: 150,
-    padding: EdgeInsets.all(4),
-    mainAxisSpacing: 4,
-    crossAxisSpacing: 4,
-    children: images.map((image) => Container(
-      child: Image.asset(image),
-    )).toList(),
+  Widget _buildList() => ListView(
+    children: <Widget>[
+      _tile('映画館1', '映画館です', Icons.theaters),
+      _tile('映画館2', '映画館です', Icons.theaters),
+      _tile('映画館3', '映画館です', Icons.theaters),
+      _tile('映画館4', '映画館です', Icons.theaters),
+      _tile('映画館5', '映画館です', Icons.theaters),
+      _tile('映画館6', '映画館です', Icons.theaters),
+      Divider(),
+      _tile('レストラン1', 'レストランです', Icons.restaurant),
+      _tile('レストラン2', 'レストランです', Icons.restaurant),
+      _tile('レストラン3', 'レストランです', Icons.restaurant),
+      _tile('レストラン4', 'レストランです', Icons.restaurant),
+      _tile('レストラン5', 'レストランです', Icons.restaurant),
+      _tile('レストラン6', 'レストランです', Icons.restaurant),      
+    ],
+  );
+
+  ListTile _tile(String title, String subtitle, IconData icon) => ListTile(
+    title: Text(title, style: TextStyle(
+      fontWeight: FontWeight.w500,
+      fontSize: 20,
+    )),
+    subtitle: Text(subtitle),
+    leading: Icon(
+      icon,
+      color: Colors.blue[500],
+    ),
   );
 }
