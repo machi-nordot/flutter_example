@@ -6,42 +6,46 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
     title: 'Navigation',
-    home: MainScreen(),
-  );
-}
-
-class MainScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      title: Text('Main Screen'),
-    ),
-    body: GestureDetector(
-      // 画面間でアニメーションさせたいウィジットをHeroウィジットでラップする。
-      child: Hero(
-        tag: 'imageHero',
-        child: Image.network('https://picsum.photos/250?image=9'),
+    home: Scaffold(
+      appBar: AppBar(
+        title: Text('TapBox'),
       ),
-      onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (_) => DetailScreen()));
-      }
+      body: Center(
+        child: TapBoxA(),
+      )
     )
   );
 }
 
-class DetailScreen extends StatelessWidget {
+class TapBoxA extends StatefulWidget {
   @override
-  Widget build(BuildContext context) => Scaffold(
-    body: GestureDetector(
+  _TapBoxAState createState() => _TapBoxAState();
+}
+
+class _TapBoxAState extends State<TapBoxA> {
+  bool _active = false;
+
+  @override
+  Widget build(BuildContext context) => GestureDetector(
+    child: Container(
       child: Center(
-        child: Hero(
-          tag: 'imageHero',
-          child: Image.network('https://picsum.photos/250?image=9'),
-        )
+        child: Text(
+          _active ? 'Active' : 'Inactive',
+          style: TextStyle(fontSize: 32.0, color: Colors.white)
+        ),
       ),
-      onTap: () {
-        Navigator.pop(context);
-      },
+      width: 200.0,
+      height: 200.0,
+      decoration: BoxDecoration(
+        color: _active ? Colors.lightGreen[700] : Colors.grey[600],
+      ),
     ),
+    onTap: _handleTap,
   );
+
+  void _handleTap() {
+    setState(() {
+      _active = !_active;
+    });
+  }
 }
