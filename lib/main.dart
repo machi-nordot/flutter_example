@@ -11,30 +11,40 @@ class MyApp extends StatelessWidget {
       appBar: AppBar(
         title: Text('Widgets layout demo'),
       ),
-      body: _buildStack(),
+      body: _buildCard(),
     ),
   );
 
-  Widget _buildStack() => Stack(
-    alignment: Alignment(0.6, 0.6),
-    children: <Widget>[
-      CircleAvatar(
-        backgroundImage: AssetImage('images/pic1.jpg'),
-        radius: 100,
-      ),
-      Container(
-        decoration: BoxDecoration(
-          color: Colors.black45,
-        ),
-        child: Text(
-          'Mia B',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.white
-          )
-        )
+  Widget _buildCard() => SizedBox(
+    height: 210,
+    child: Card(
+      child: Column(
+        children: <Widget>[
+          ListTile(
+            title: Text('xxxxxxx', style: TextStyle(fontWeight: FontWeight.w500)),
+            subtitle: Text('yyyyyy'),
+            leading: Icon(
+              Icons.restaurant_menu,
+              color: Colors.blue[500],
+            ),
+          ),
+          Divider(),
+          ListTile(
+            title: Text('03-1234-5678', style: TextStyle(fontWeight: FontWeight.w500)),
+            leading: Icon(
+              Icons.contact_phone,
+              color: Colors.blue[500],
+            )
+          ),
+          ListTile(
+            title: Text('example@example.com', style: TextStyle(fontWeight: FontWeight.w500)),
+            leading: Icon(
+              Icons.contact_mail,
+              color: Colors.blue[500],
+            )
+          ),
+        ],
       )
-    ],
+    ),
   );
 }
