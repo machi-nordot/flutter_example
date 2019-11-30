@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
       appBar: AppBar(
         title: Text('Widgets layout demo'),
       ),
-      body: _buildImageContainer([
+      body: _buildGrid([
         'images/pic1.jpg',
         'images/pic2.jpg',
         'images/pic3.jpg',
@@ -22,31 +22,15 @@ class MyApp extends StatelessWidget {
     ),
   );
 
-  Widget _buildImageContainer(List<String> images) {
-    final slicedImages = images.fold<List<List<String>>>([], (list, image) {
-      if (list.length == 0 || list.last.length >= 2) {
-        list.add(<String>[]);
-      }
-      list.last.add(image);
-      return list;
-    });
-
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-      ),
-      child: Column(
-        children: slicedImages.map((rowImages) => Row(
-          children: rowImages.map((image) => Container(
-            decoration: BoxDecoration(
-              border: Border.all(width: 10, color: Colors.black38),
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-            ),
-            margin: EdgeInsets.all(4),
-            child: Image.asset(image, width: 150),
-          )).toList(),
-        )).toList(),
-      ),
-    );
-  }
+  // GridView.count: 1列の要素数を指定して作成
+  // GridView.extent: タイル(gridの各要素)の最大幅を指定して作成
+  Widget _buildGrid(List<String> images) => GridView.extent(
+    maxCrossAxisExtent: 150,
+    padding: EdgeInsets.all(4),
+    mainAxisSpacing: 4,
+    crossAxisSpacing: 4,
+    children: images.map((image) => Container(
+      child: Image.asset(image),
+    )).toList(),
+  );
 }
