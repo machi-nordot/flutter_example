@@ -13,12 +13,24 @@ class MyApp extends StatelessWidget {
       body: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Image.asset('images/pic1.jpg'),
-          Image.asset('images/pic2.jpg'),
-          Image.asset('images/pic3.jpg'),
-          Image.asset('images/pic1.jpg'),
-          Image.asset('images/pic2.jpg'),
-          Image.asset('images/pic3.jpg'),
+          Expanded(
+            child: Image.asset('images/pic1.jpg'),
+          ),
+          Expanded(
+            child: Image.asset('images/pic2.jpg'),
+          ),
+          Expanded(
+            child: Image.asset('images/pic3.jpg'),
+          ),
+          Expanded(
+            child: Image.asset('images/pic1.jpg'),
+          ),
+          Expanded(
+            child: Image.asset('images/pic2.jpg'),
+          ),
+          Expanded(
+            child: Image.asset('images/pic3.jpg'),
+          ),
         ],
       )
     ),
