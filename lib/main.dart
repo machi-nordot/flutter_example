@@ -4,15 +4,7 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => MaterialApp(
-    title: 'Flutter layout demo',
-    home: Scaffold(
-      appBar: AppBar(
-        title: Text('Flutter layout demo'),
-      ),
-      body: Center(
-        child: Text('Hello World'),
-      )
-    )
+  Widget build(BuildContext context) => Center(
+    child: Text('Hello World', textDirection: TextDirection.ltr),
   );
 }
